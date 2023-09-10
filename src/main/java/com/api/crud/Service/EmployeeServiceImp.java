@@ -1,5 +1,6 @@
 package com.api.crud.Service;
 
+import com.api.crud.Excepiton.EmployeeNotFoundException;
 import com.api.crud.Entity.Employee;
 import com.api.crud.Repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +25,9 @@ public class EmployeeServiceImp implements EmployeeService{
         if (byId.isPresent()){
           return  byId.get();
         }
+         throw new EmployeeNotFoundException("Employee Not Found By Id :- "+eid);
 
-        return null;
+
     }
 
     @Override
@@ -36,7 +38,7 @@ public class EmployeeServiceImp implements EmployeeService{
             return repo.save(employee);
         }
 
-        return null;
+        throw new EmployeeNotFoundException("Employee Not Found By Id :- "+eid);
     }
 
     @Override
@@ -52,7 +54,7 @@ public class EmployeeServiceImp implements EmployeeService{
             repo.deleteById(eid);
             return byId.get();
         }
-        return null;
+        throw new EmployeeNotFoundException("Employee Not Found By Id :- "+eid);
 
     }
 }
